@@ -1,20 +1,24 @@
 # QA Test Cases
 
-Repositório criado para estudos de Quality Assurance (QA), contendo casos de teste manuais, cenários de validação, checklist e registro de bugs.
+Repositório criado para estudos de Quality Assurance (QA).
+
+## Conteúdo
+- Casos de teste manuais
+- Cenários positivos e negativos
+- Registro de bugs
+- Documentação de testes
 
 ## Objetivo
-
 Praticar:
 - Escrita de casos de teste
-- Identificação de falhas
 - Validação de funcionalidades
 - Organização de testes
 - Documentação técnica
 
 ## Ferramentas
 - GitHub
+- Markdown
 - Testes manuais
-- Postman (futuramente)
 
 ## Status
 Em desenvolvimento.
