@@ -59,3 +59,33 @@ Validar comportamento do sistema ao deixar o campo senha vazio.
 ### Resultado esperado
 Sistema exibe mensagem informando que a senha é obrigatória.
 
+---
+
+## CT005 - Senha com caracteres inválidos
+
+### Objetivo
+Validar comportamento do sistema ao inserir caracteres inválidos na senha.
+
+### Passos
+1. Acessar tela de login
+2. Inserir usuário válido
+3. Inserir caracteres inválidos na senha
+4. Clicar em Login
+
+### Resultado esperado
+Sistema impede autenticação e exibe mensagem de erro.
+
+---
+
+## CT006 - Tentativa de login sem preencher campos
+
+### Objetivo
+Validar comportamento do sistema ao tentar login sem preencher usuário e senha.
+
+### Passos
+1. Acessar tela de login
+2. Não preencher nenhum campo
+3. Clicar em Login
+
+### Resultado esperado
+Sistema exibe mensagens informando campos obrigatórios.
