@@ -45,3 +45,4 @@ Contém exemplos de bug reports documentados com:
 
 ## Status
 Projeto em desenvolvimento contínuo para evolução prática em QA.
+
