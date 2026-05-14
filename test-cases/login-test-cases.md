@@ -89,3 +89,9 @@ Validar comportamento do sistema ao tentar login sem preencher usuário e senha.
 
 ### Resultado esperado
 Sistema exibe mensagens informando campos obrigatórios.
+
+### Prioridade
+Alta
+
+### Severidade
+Média
