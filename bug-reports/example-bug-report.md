@@ -63,3 +63,9 @@ Sem evidências no momento.
 
 ## Resultado esperado
 Sistema deve bloquear tentativa e exibir mensagem de obrigatoriedade.
+
+### Prioridade
+Alta
+
+### Severidade
+Média
