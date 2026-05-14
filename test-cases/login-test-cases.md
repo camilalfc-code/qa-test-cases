@@ -17,6 +17,12 @@ Usuário cadastrado no sistema.
 ### Resultado esperado
 Usuário acessa o sistema com sucesso.
 
+### Prioridade
+Alta
+
+### Severidade
+Baixa
+
 ---
 
 ## CT002 - Senha inválida
@@ -26,6 +32,12 @@ Validar mensagem de erro ao inserir senha inválida.
 
 ### Resultado esperado
 Sistema exibe mensagem de erro.
+
+### Prioridade
+Alta
+
+### Severidade
+Média
 
 ---
 
@@ -43,6 +55,12 @@ Validar comportamento do sistema ao deixar o campo usuário vazio.
 ### Resultado esperado
 Sistema exibe mensagem informando que o usuário é obrigatório.
 
+### Prioridade
+Alta
+
+### Severidade
+Média
+
 ---
 
 ## CT004 - Campo senha vazio
@@ -59,6 +77,12 @@ Validar comportamento do sistema ao deixar o campo senha vazio.
 ### Resultado esperado
 Sistema exibe mensagem informando que a senha é obrigatória.
 
+### Prioridade
+Alta
+
+### Severidade
+Média
+
 ---
 
 ## CT005 - Senha com caracteres inválidos
@@ -74,6 +98,12 @@ Validar comportamento do sistema ao inserir caracteres inválidos na senha.
 
 ### Resultado esperado
 Sistema impede autenticação e exibe mensagem de erro.
+
+### Prioridade
+Alta
+
+### Severidade
+Média
 
 ---
 
@@ -95,3 +125,5 @@ Alta
 
 ### Severidade
 Média
+
+
