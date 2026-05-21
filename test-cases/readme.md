@@ -1,47 +1,38 @@
-# QA Test Cases
+# Casos de Teste
 
-Repositório criado para estudos práticos de Quality Assurance (QA), com foco em testes manuais, documentação de testes e registro de bugs.
+Esta pasta contém casos de teste funcionais para validação de fluxos de aplicações web.
+
+## Arquivos
+
+| Arquivo | Fluxo testado | Casos |
+|---|---|---|
+| `login-test-cases.md` | Autenticação de usuário | 6 casos |
+| `cadastro-test-cases.md` | Cadastro de novo usuário | 6 casos |
+
+## Estrutura de cada caso de teste
+
+Cada caso segue o padrão:
+
+- **ID** — identificador único (CT001, CT002...)
+- **Tipo** — Funcional ou Smoke Test
+- **Objetivo** — o que está sendo validado
+- **Pré-condição** — o que precisa estar configurado antes de executar
+- **Passos** — sequência exata de ações
+- **Resultado esperado** — comportamento correto do sistema
+- **Status** — Não executado / Passou / Falhou / Bloqueado
+
+## Cobertura atual
+
+| Funcionalidade | Casos de teste |
+|---|---|
+| Login | 6 |
+| Cadastro de usuário | 6 |
+| **Total** | **12** |
 
 ## Objetivo
 
-Praticar conceitos fundamentais de QA, incluindo:
-- Escrita de casos de teste
-- Validação de cenários positivos e negativos
-- Identificação de falhas
-- Priorização e severidade
-- Documentação técnica
-- Registro de bugs
+Demonstrar habilidades em escrita de casos de teste, análise funcional e cobertura de cenários positivos e negativos.
 
-## Estrutura do Projeto
+---
 
-### Casos de Teste
-Contém cenários de validação para funcionalidades de login:
-- Login válido
-- Senha inválida
-- Campos obrigatórios
-- Caracteres inválidos
-- Tentativas sem preenchimento
-
-### Relatórios de Erro
-Contém exemplos de bug reports documentados com:
-- Severidade
-- Prioridade
-- Passos para reprodução
-- Resultado esperado
-- Resultado atual
-
-## Ferramentas Utilizadas
-- GitHub
-- Markdown
-- Testes Manuais
-- Postman (em aprendizado)
-
-## Conhecimentos Praticados
-- Casos de teste
-- Bug report
-- Prioridade e severidade
-- API Testing básico
-- Versionamento com GitHub
-
-## Status
-Projeto em desenvolvimento contínuo para evolução prática em QA.
+*Repositório de estudos — Camila Lopes | QA em formação*
