@@ -1,157 +1,217 @@
-# Casos de Uso — SQL em Testes de Software
-Cenários práticos de como um analista de QA usa SQL no dia a dia para validar dados e investigar problemas.
+# Queries SQL para QA — Validação de Dados
+Consultas SQL organizadas por tipo, com foco em validação de dados e apoio a testes de software.
 
-## Caso 1 — Validar cadastro de usuário
-
-### Objetivo
-Situação: após preencher e submeter o formulário de cadastro na interface, verificar se os dados foram gravados corretamente.
-
-### Passos
-Buscar o usuário pelo e-mail informado no cadastro
-
-SELECT id, nome, email, status, data_criacao
-
-FROM usuarios
-
-WHERE email = 'camila@teste.com';
-
-
-### O que validar
-Nome gravado sem caracteres estranhos
-
-E-mail em letras minúsculas (ou conforme regra do sistema)
-
-Status = 'ativo' (ou o valor esperado para novo cadastro)
-
-Data de criação corresponde ao momento do teste
-
-
-## Caso 2 — Verificar se senha foi criptografada
+## 1- SELECT — Buscar e visualizar registros
 
 ### Objetivo
-Situação: o sistema não deve armazenar senha em texto puro (plain text). Verificar se está sendo criptografada.
+A query mais básica. Usada para verificar se os dados foram salvos corretamente após uma ação no sistema.
 
 ### Passos
-SELECT nome, senha FROM usuarios WHERE email = 'camila@teste.com';
+-- Buscar todos os usuários cadastrados
 
-### O que validar
-O campo senha deve conter um hash (sequência longa de caracteres aleatórios)
+SELECT * FROM usuarios;
 
-Se mostrar a senha digitada em texto puro — isso é um bug de segurança grave
+-- Buscar apenas campos específicos (mais eficiente)
+
+SELECT id, nome, email, status FROM usuarios;
 
 
-## Caso 3 — Confirmar atualização de dados
+### Uso em QA
+após cadastrar um usuário na interface, confirmar se os dados foram gravados corretamente no banco.
+
+
+
+## 2- WHERE — Filtrar registros
 
 ### Objetivo
-Situação: o usuário alterou o endereço no perfil. Verificar se a alteração foi salva.
+Filtra resultados por condição. Essencial para isolar o dado que você quer validar.
 
 ### Passos
--- Antes da alteração — anotar o valor atual
+-- Buscar usuário específico por e-mail
 
-SELECT endereco FROM clientes WHERE id = 42;
+SELECT * FROM usuarios WHERE email = 'teste@exemplo.com';
 
--- Após a alteração — comparar com o novo valor
+-- Buscar pedidos com status específico
 
-SELECT endereco, data_atualizacao FROM clientes WHERE id = 42;
+SELECT * FROM pedidos WHERE status = 'pendente';
 
-### O que validar
-Novo endereço gravado corretamente
+-- Buscar registros de uma data específica
 
-Campo data_atualizacao foi atualizado com o timestamp atual
+SELECT * FROM logs WHERE data_criacao = '2025-05-01';
+
+### Uso em QA
+validar se um registro específico foi criado, atualizado ou removido corretamente.
 
 
-## Caso 4 — Validar exclusão de registro
+## 3- AND / OR — Múltiplas condições
 
 ### Objetivo
-Situação: o usuário deletou um item. Verificar se foi realmente removido (ou apenas marcado como inativo, dependendo da regra do sistema).
+Combinam condições para filtros mais precisos.
 
 ### Passos
--- Verificar se o registro ainda existe
+-- Buscar usuários ativos E com perfil administrador
 
-SELECT * FROM produtos WHERE id = 15;
+SELECT * FROM usuarios WHERE status = 'ativo' AND perfil = 'admin';
 
--- Se o sistema usa "soft delete" (não apaga, só desativa)
+-- Buscar pedidos cancelados OU com erro de pagamento
 
-SELECT id, nome, status, deletado_em FROM produtos WHERE id = 15;
-
-### O que validar
-Se exclusão física: nenhum resultado deve ser retornado
-
-Se soft delete: status = 'inativo' e deletado_em preenchido
+SELECT * FROM pedidos WHERE status = 'cancelado' OR status = 'erro_pagamento';
 
 
-## Caso 5 — Checar regra de negócio: desconto por categoria
+### Uso em QA
+validar combinações de campos — por exemplo, verificar se um desconto foi aplicado apenas para clientes que atendem a dois critérios ao mesmo tempo.
+
+
+## 4- COUNT — Contar registros
 
 ### Objetivo
-Situação: o sistema aplica 10% de desconto para clientes da categoria "premium". Validar se a regra está sendo aplicada corretamente.
+Conta quantos registros atendem a uma condição.
 
 ### Passos
--- Buscar pedidos de clientes premium e verificar desconto
+-- Contar total de usuários cadastrados
 
-SELECT pedidos.id, clientes.categoria, pedidos.valor_total, pedidos.desconto
+SELECT COUNT(*) FROM usuarios;
+
+-- Contar pedidos com status 'concluído'
+
+SELECT COUNT(*) FROM pedidos WHERE status = 'concluido';
+
+-- Contar usuários por perfil
+
+SELECT perfil, COUNT(*) FROM usuarios GROUP BY perfil;
+
+### Uso em QA
+verificar se a quantidade de registros está correta após uma importação, cadastro em massa ou deleção.
+
+
+## 5- JOIN — Cruzar dados de tabelas diferentes
+
+### Objetivo
+Combina dados de duas ou mais tabelas. Muito útil para validar relacionamentos entre entidades.
+
+### Passos
+-- Buscar pedidos com nome do cliente (tabela pedidos + tabela clientes)
+
+SELECT pedidos.id, clientes.nome, pedidos.valor, pedidos.status
+
+FROM pedidos
+
+JOIN clientes ON pedidos.cliente_id = clientes.id;
+
+-- Buscar itens de um pedido com nome do produto
+
+SELECT pedidos.id, produtos.nome, itens_pedido.quantidade
+
+FROM itens_pedido
+
+JOIN pedidos ON itens_pedido.pedido_id = pedidos.id
+
+JOIN produtos ON itens_pedido.produto_id = produtos.id;
+
+
+### Uso em QA
+validar se os relacionamentos entre tabelas estão corretos — por exemplo, se um pedido está vinculado ao cliente certo.
+
+
+## 6- NULL — Identificar campos vazios
+
+### Objetivo
+Verifica campos sem valor preenchido — um dos erros mais comuns em sistemas.
+
+### Passos
+-- Buscar usuários sem e-mail cadastrado
+
+SELECT * FROM usuarios WHERE email IS NULL;
+
+-- Buscar pedidos sem data de entrega definida
+
+SELECT * FROM pedidos WHERE data_entrega IS NULL;
+
+-- Buscar registros COM valor preenchido (NOT NULL)
+
+SELECT * FROM usuarios WHERE telefone IS NOT NULL;
+
+### Uso em QA
+identificar campos obrigatórios que foram gravados vazios, o que indica falha na validação do sistema.
+
+
+## 7- ORDER BY — Ordenar resultados
+
+### Objetivo
+Organiza os resultados por um campo, facilitando a análise.
+
+### Passos
+-- Listar pedidos do mais recente para o mais antigo
+
+SELECT * FROM pedidos ORDER BY data_criacao DESC;
+
+-- Listar usuários em ordem alfabética
+
+SELECT nome, email FROM usuarios ORDER BY nome ASC;
+
+### Uso em QA
+facilita a localização do registro mais recente após um teste, sem precisar procurar manualmente.
+
+
+## 8- LIKE — Busca parcial de texto
+
+### Objetivo
+Útil para encontrar registros por parte do valor.
+
+### Passos
+-- Buscar usuários cujo nome começa com "Ana"
+
+SELECT * FROM usuarios WHERE nome LIKE 'Ana%';
+
+-- Buscar e-mails de um domínio específico
+
+SELECT * FROM usuarios WHERE email LIKE '%@empresa.com';
+
+### Uso em QA
+validar se dados de texto foram gravados com o formato correto.
+
+
+## Cenário completo — Investigação de bug
+
+### Objetivo
+Situação: o sistema deveria enviar e-mail de confirmação para todos os pedidos concluídos, mas alguns clientes reclamaram que não receberam.
+
+### Passos
+-- Passo 1: quantos pedidos foram concluídos?
+
+SELECT COUNT(*) FROM pedidos WHERE status = 'concluido';
+
+-- Passo 2: desses, quantos têm e-mail de confirmação registrado?
+
+SELECT COUNT(*) FROM pedidos
+
+WHERE status = 'concluido' AND email_confirmacao_enviado = 1;
+
+-- Passo 3: quais pedidos NÃO tiveram e-mail enviado?
+
+SELECT pedidos.id, clientes.nome, clientes.email
 
 FROM pedidos
 
 JOIN clientes ON pedidos.cliente_id = clientes.id
 
-WHERE clientes.categoria = 'premium'
+WHERE pedidos.status = 'concluido'
 
-ORDER BY pedidos.data_criacao DESC
+AND pedidos.email_confirmacao_enviado = 0;
 
-LIMIT 10;
+-- Passo 4: algum desses clientes tem e-mail nulo?
 
-
-### O que validar
-Todos os registros com categoria = 'premium' devem ter desconto = 10
-
-Se algum registro premium tiver desconto = 0 — bug na regra de negócio
-
-
-## Caso 6 — Identificar dados duplicados
-
-### Objetivo
-Situação: suspeita de que o sistema está gravando pedidos duplicados em situações de duplo clique ou lentidão.
-
-### Passos
--- Buscar combinações de cliente + valor + data que aparecem mais de uma vez
-
-SELECT cliente_id, valor_total, DATE(data_criacao), COUNT(*) as total
+SELECT pedidos.id, clientes.nome
 
 FROM pedidos
 
-GROUP BY cliente_id, valor_total, DATE(data_criacao)
+JOIN clientes ON pedidos.cliente_id = clientes.id
 
-HAVING COUNT(*) > 1;
+WHERE pedidos.status = 'concluido'
 
+AND clientes.email IS NULL;
 
-### O que validar
-Nenhum resultado = sem duplicatas
-
-Se retornar registros = possível bug de duplicação
-
-
-## Caso 7 — Validar campos obrigatórios
-
-### Objetivo
-Situação: o sistema tem campos obrigatórios que deveriam ser bloqueados na interface. Verificar se algum conseguiu ser gravado vazio mesmo assim.
-
-### Passos
--- Verificar campos críticos que não deveriam ser NULL
-
-SELECT id, nome, email, cpf
-
-FROM clientes
-
-WHERE nome IS NULL
-
-   OR email IS NULL
-   
-   OR cpf IS NULL;
-   
-
-### O que validar
-Nenhum resultado = validação funcionando corretamente
-Se retornar registros = a validação do campo obrigatório tem falha
-
+### Uso em QA
+Conclusão: com essas queries é possível identificar exatamente quais pedidos falharam e se o problema está nos dados (e-mail nulo) ou no processo de envio.
 
 Repositório de estudos — Camila Lopes | QA em formação
