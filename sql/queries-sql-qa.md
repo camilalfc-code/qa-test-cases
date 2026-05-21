@@ -8,9 +8,13 @@ Situação: após preencher e submeter o formulário de cadastro na interface, v
 
 ### Passos
 Buscar o usuário pelo e-mail informado no cadastro
+
 SELECT id, nome, email, status, data_criacao
+
 FROM usuarios
+
 WHERE email = 'camila@teste.com';
+
 
 ### O que validar
 Nome gravado sem caracteres estranhos
@@ -80,11 +84,17 @@ Situação: o sistema aplica 10% de desconto para clientes da categoria "premium
 ### Passos
 -- Buscar pedidos de clientes premium e verificar desconto
 SELECT pedidos.id, clientes.categoria, pedidos.valor_total, pedidos.desconto
+
 FROM pedidos
+
 JOIN clientes ON pedidos.cliente_id = clientes.id
+
 WHERE clientes.categoria = 'premium'
+
 ORDER BY pedidos.data_criacao DESC
+
 LIMIT 10;
+
 
 ### O que validar
 Todos os registros com categoria = 'premium' devem ter desconto = 10
@@ -100,9 +110,13 @@ Situação: suspeita de que o sistema está gravando pedidos duplicados em situa
 ### Passos
 -- Buscar combinações de cliente + valor + data que aparecem mais de uma vez
 SELECT cliente_id, valor_total, DATE(data_criacao), COUNT(*) as total
+
 FROM pedidos
+
 GROUP BY cliente_id, valor_total, DATE(data_criacao)
+
 HAVING COUNT(*) > 1;
+
 
 ### O que validar
 Nenhum resultado = sem duplicatas
@@ -118,10 +132,15 @@ Situação: o sistema tem campos obrigatórios que deveriam ser bloqueados na in
 ### Passos
 -- Verificar campos críticos que não deveriam ser NULL
 SELECT id, nome, email, cpf
+
 FROM clientes
+
 WHERE nome IS NULL
+
    OR email IS NULL
+   
    OR cpf IS NULL;
+   
 
 ### O que validar
 Nenhum resultado = validação funcionando corretamente
