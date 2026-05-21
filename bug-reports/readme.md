@@ -1,29 +1,24 @@
-# Relatórios de Erros
+# Bug Reports
 
 Esta pasta contém exemplos de relatórios de bugs utilizados em processos de teste de software (QA).
 
 Os documentos apresentam:
-- identificação do bug
-- gravidade e prioridade
-- ambiente de teste
-- passos para reprodução
-- resultado atual
-- resultado esperado
-- evidências
+- Identificação do bug (ID)
+- Severidade e prioridade
+- Ambiente de teste
+- Passos para reprodução
+- Resultado obtido vs. resultado esperado
+- Evidências
 
 ## Objetivo
-
 Demonstrar habilidades de documentação de falhas, análise funcional e registro de inconsistências em sistemas.
 
 ## Arquivos
-
-### example-bug-report.md
-Exemplo de relatório de bug relacionado à validação de login com campos obrigatórios vazios.
+- `exemplo-relatório-de-erro.md` — Bug report de validação de login com campos obrigatórios vazios
 
 ## Ferramentas e conceitos utilizados
-
-- QA Manual
-- Jira
+- Testes Manuais de QA
+- JIRA
 - Testes Funcionais
-- Registro de Bugs
+- Bug Tracking
 - Análise de comportamento do sistema
