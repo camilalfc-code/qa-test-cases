@@ -9,16 +9,16 @@ Situação: após preencher e submeter o formulário de cadastro na interface, v
 
 
 ### Passos
--- Buscar o usuário pelo e-mail informado no cadastro
-SELECT id, nome, email, status, data_criacao
-FROM usuarios
-WHERE email = 'camila@teste.com';
+1.Buscar o usuário pelo e-mail informado no cadastro
+2.SELECT id, nome, email, status, data_criacao
+3.FROM usuarios
+4.WHERE email = 'camila@teste.com';
 
 ### O que validar:
-Nome gravado sem caracteres estranhos
-E-mail em letras minúsculas (ou conforme regra do sistema)
-Status = 'ativo' (ou o valor esperado para novo cadastro)
-Data de criação corresponde ao momento do teste
+1.Nome gravado sem caracteres estranhos
+2.E-mail em letras minúsculas (ou conforme regra do sistema)
+3.Status = 'ativo' (ou o valor esperado para novo cadastro)
+4.Data de criação corresponde ao momento do teste
 
 
 
