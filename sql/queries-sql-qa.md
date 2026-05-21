@@ -47,9 +47,11 @@ Situação: o usuário alterou o endereço no perfil. Verificar se a alteração
 
 ### Passos
 -- Antes da alteração — anotar o valor atual
+
 SELECT endereco FROM clientes WHERE id = 42;
 
 -- Após a alteração — comparar com o novo valor
+
 SELECT endereco, data_atualizacao FROM clientes WHERE id = 42;
 
 ### O que validar
@@ -65,9 +67,11 @@ Situação: o usuário deletou um item. Verificar se foi realmente removido (ou 
 
 ### Passos
 -- Verificar se o registro ainda existe
+
 SELECT * FROM produtos WHERE id = 15;
 
 -- Se o sistema usa "soft delete" (não apaga, só desativa)
+
 SELECT id, nome, status, deletado_em FROM produtos WHERE id = 15;
 
 ### O que validar
@@ -83,6 +87,7 @@ Situação: o sistema aplica 10% de desconto para clientes da categoria "premium
 
 ### Passos
 -- Buscar pedidos de clientes premium e verificar desconto
+
 SELECT pedidos.id, clientes.categoria, pedidos.valor_total, pedidos.desconto
 
 FROM pedidos
@@ -109,6 +114,7 @@ Situação: suspeita de que o sistema está gravando pedidos duplicados em situa
 
 ### Passos
 -- Buscar combinações de cliente + valor + data que aparecem mais de uma vez
+
 SELECT cliente_id, valor_total, DATE(data_criacao), COUNT(*) as total
 
 FROM pedidos
@@ -131,6 +137,7 @@ Situação: o sistema tem campos obrigatórios que deveriam ser bloqueados na in
 
 ### Passos
 -- Verificar campos críticos que não deveriam ser NULL
+
 SELECT id, nome, email, cpf
 
 FROM clientes
