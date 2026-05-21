@@ -1,67 +1,41 @@
-# Bug Report - Login inválido
-
-## ID
-BUG-001
+# Bug Report — BUG-001
 
 ## Título
-Sistema permite tentativa de login sem preenchimento obrigatório.
-
-## Severidade
-Média
-
-## Prioridade
-Alta
-
-## Ambiente
-Chrome - Windows 11
-
-## Passos para reproduzir
-1. Acessar tela de login
-2. Deixar campos vazios
-3. Clicar em Login
-
-## Resultado atual
-Sistema tenta processar login sem validação adequada.
-
-# Bug Report - Login sem validação
-
-## ID
-BUG-001
-
-## Título
-Sistema permite tentativa de login com campos obrigatórios vazios.
+Sistema permite tentativa de login com campos obrigatórios vazios
 
 ## Tipo
 Funcional
 
 ## Severidade
-Média
+Média — não impede o uso do sistema, mas indica falha na validação de entrada
 
 ## Prioridade
-Alta
+Alta — campos obrigatórios sem validação comprometem a experiência e a segurança
 
 ## Ambiente
-- Navegador: Google Chrome
+- Navegador: Google Chrome 124
 - Sistema operacional: Windows 11
+- Tela: /login
 
 ## Pré-condição
-Usuário acessando a tela de login.
+Usuário na tela de login, sem nenhum dado preenchido.
 
 ## Passos para reproduzir
-1. Acessar tela de login
-2. Deixar os campos usuário e senha vazios
+1. Acessar a tela de login
+2. Deixar os campos "Usuário" e "Senha" vazios
 3. Clicar no botão "Login"
 
-## Resultado atual
-Sistema permite tentativa de autenticação sem validação adequada.
-
 ## Resultado esperado
-Sistema deve impedir a tentativa de login e exibir mensagem informando obrigatoriedade dos campos.
+Sistema bloqueia a tentativa e exibe mensagem informando que os campos são obrigatórios.
+
+## Resultado obtido
+Sistema tenta processar a autenticação sem validar os campos. 
+Nenhuma mensagem de erro é exibida ao usuário.
 
 ## Evidências
-Sem evidências no momento.
+[inserir print da tela]
 
-## Resultado esperado
-Sistema deve bloquear tentativa e exibir mensagem de obrigatoriedade.
+## Observações
+Testado também sem preencher apenas um dos campos — comportamento idêntico.
 
 
