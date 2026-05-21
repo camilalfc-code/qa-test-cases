@@ -1,48 +1,59 @@
-# QA Test Cases
+# Portfólio de Estudos — Quality Assurance
 
-Repositório criado para estudos práticos de Quality Assurance (QA), com foco em testes manuais, documentação de testes e registro de bugs.
+Repositório de estudos práticos em **Qualidade de Software (QA)**, com foco em testes manuais, documentação técnica e ferramentas utilizadas por equipes de QA em ambiente ágil.
 
-## Objetivo
+---
 
-Praticar conceitos fundamentais de QA, incluindo:
-- Escrita de casos de teste
-- Validação de cenários positivos e negativos
-- Identificação de falhas
-- Priorização e severidade
+## Sobre
+
+Sou Camila Lopes, em transição para a área de QA trazendo 15 anos de experiência em gestão de contratos, rastreabilidade e análise documental no setor público — habilidades diretamente aplicáveis à qualidade de software.
+
+Atualmente em formação em Análise e Desenvolvimento de Sistemas (ADS) e desenvolvendo competências práticas em testes manuais, automação e ferramentas de QA.
+
+📍 Araraquara, SP — aberta a oportunidades remotas  
+🔗 [LinkedIn](https://www.linkedin.com/in/camila-lopes)
+
+---
+
+## Conteúdo do repositório
+
+| Pasta | O que contém |
+|---|---|
+| [`casos de teste`](./casos%20de%20teste/) | Casos de teste funcionais para login e cadastro |
+| [`relatórios de erros`](./relatórios%20de%20erros/) | Modelos e exemplos de bug report |
+| [`JIRA`](./JIRA/) | Fluxo de QA no JIRA, gestão de bugs e Scrum Board |
+| [`SQL`](./SQL/) | Queries SQL aplicadas a validação de dados em testes |
+
+---
+
+## Habilidades em desenvolvimento
+
+**Testes**
+- Testes manuais funcionais
+- Escrita de casos de teste (positivos e negativos)
+- Smoke Test, Reteste e Teste de Regressão
+- Registro e acompanhamento de bugs
+
+**Ferramentas**
+- JIRA — gestão de tickets e fluxo de defeitos
+- Postman — API Testing e validação de respostas
+- SQL — validação de dados no banco
+- GitHub — versionamento e documentação
+- Python — introdução à automação de testes
+
+**Conceitos**
+- Ciclo de vida de defeitos
+- Análise de requisitos
 - Documentação técnica
-- Registro de bugs
+- Metodologias ágeis (Scrum / Kanban)
 
-## Estrutura do Projeto
+---
 
-### Casos de Teste
-Contém cenários de validação para funcionalidades de login:
-- Login válido
-- Senha inválida
-- Campos obrigatórios
-- Caracteres inválidos
-- Tentativas sem preenchimento
+## Status do repositório
 
-### Relatórios de Erro
-Contém exemplos de bug reports documentados com:
-- Severidade
-- Prioridade
-- Passos para reprodução
-- Resultado esperado
-- Resultado atual
+🟡 Em andamento — atualizado conforme evolução dos estudos.
 
-## Ferramentas Utilizadas
-- GitHub
-- Markdown
-- Testes Manuais
-- Postman (em aprendizado)
+---
 
-## Conhecimentos Praticados
-- Casos de teste
-- Bug report
-- Prioridade e severidade
-- API Testing básico
-- Versionamento com GitHub
-
-## Status
-Projeto em desenvolvimento contínuo para evolução prática em QA.
+*Camila Lopes | QA em formação | 2025–2026*
 
