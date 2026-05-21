@@ -1,6 +1,7 @@
 # Casos de Uso — SQL em Testes de Software
 Cenários práticos de como um analista de QA usa SQL no dia a dia para validar dados e investigar problemas.
 
+
 ## Caso 1 — Validar cadastro de usuário
 
 ### Objetivo
