@@ -1,6 +1,11 @@
-# Cadastro de Usuário — Test Cases
+# Cadastro de Usuário — Casos de Teste
 
 Casos de teste para validação do fluxo de cadastro de novo usuário no sistema.
+
+**Sistema sob teste:** ServeRest — https://front.serverest.dev  
+**Data de execução:** 03/06/2026  
+**Ambiente:** Produção  
+**Executado por:** Camila Lopes  
 
 ---
 
@@ -9,6 +14,9 @@ Casos de teste para validação do fluxo de cadastro de novo usuário no sistema
 ### Tipo
 Funcional — Smoke Test
 
+### Prioridade
+Alta
+
 ### Objetivo
 Validar que o cadastro é realizado com sucesso ao preencher todos os campos corretamente.
 
@@ -16,21 +24,38 @@ Validar que o cadastro é realizado com sucesso ao preencher todos os campos cor
 Usuário não cadastrado no sistema.
 Acesso à tela de cadastro.
 
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| Nome | Camila QA |
+| E-mail | camila.qa.2026@teste.com |
+| Senha | teste123 |
+
 ### Passos
-1. Acessar a tela de cadastro
-2. Preencher nome completo: "Maria Silva"
-3. Preencher e-mail válido: "maria@teste.com"
-4. Preencher senha válida: "Senha@123"
-5. Confirmar senha: "Senha@123"
-6. Clicar no botão "Cadastrar"
+1. Acessar `https://front.serverest.dev/cadastrarusuarios`
+2. Preencher nome completo
+3. Preencher e-mail válido não cadastrado
+4. Preencher senha
+5. Clicar no botão "Cadastrar"
 
 ### Resultado esperado
 Cadastro realizado com sucesso.
-Usuário redirecionado para a tela de login ou dashboard.
+Usuário redirecionado para o dashboard.
 Mensagem de confirmação exibida.
 
+### Resultado obtido
+Cadastro realizado com sucesso.
+Usuário redirecionado para o dashboard com lista de produtos.
+⚠️ Nenhuma mensagem de confirmação foi exibida — o sistema redirecionou diretamente.
+
+### Evidência
+> `evidencias/ct001-cadastro-sucesso.png`
+
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado com observação**
 
 ---
 
@@ -39,26 +64,44 @@ Mensagem de confirmação exibida.
 ### Tipo
 Funcional
 
+### Prioridade
+Alta
+
 ### Objetivo
 Validar que o sistema impede cadastro com e-mail já registrado.
 
 ### Pré-condição
-Usuário com e-mail "maria@teste.com" já cadastrado no sistema.
+Usuário com e-mail `camila.qa.2026@teste.com` já cadastrado no sistema (CT001 executado).
+
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| Nome | Outro Nome |
+| E-mail | camila.qa.2026@teste.com |
+| Senha | teste123 |
 
 ### Passos
 1. Acessar a tela de cadastro
-2. Preencher nome: "João Silva"
-3. Preencher e-mail já existente: "maria@teste.com"
-4. Preencher senha válida
-5. Confirmar senha
-6. Clicar no botão "Cadastrar"
+2. Preencher nome diferente
+3. Preencher e-mail já cadastrado
+4. Preencher senha
+5. Clicar no botão "Cadastrar"
 
 ### Resultado esperado
-Sistema bloqueia o cadastro e exibe mensagem: "Este e-mail já está cadastrado."
-Nenhum novo usuário é criado no banco de dados.
+Sistema bloqueia o cadastro e exibe mensagem de e-mail duplicado.
+
+### Resultado obtido
+Sistema exibiu mensagem: **"Este email já está sendo usado"**
+Cadastro bloqueado corretamente.
+
+### Evidência
+> `evidencias/ct002-email-duplicado.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -67,26 +110,41 @@ Nenhum novo usuário é criado no banco de dados.
 ### Tipo
 Funcional
 
+### Prioridade
+Média
+
 ### Objetivo
 Validar que o sistema rejeita e-mails fora do formato esperado.
 
-### Pré-condição
-Acesso à tela de cadastro.
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| Nome | Camila QA |
+| E-mail | camilateste.com (sem @) |
+| Senha | teste123 |
 
 ### Passos
 1. Acessar a tela de cadastro
-2. Preencher nome válido
-3. Inserir e-mail inválido: "mariatesте.com" (sem @)
-4. Preencher senha válida
-5. Confirmar senha
-6. Clicar no botão "Cadastrar"
+2. Inserir e-mail sem @ no campo e-mail
+3. Preencher nome e senha válidos
+4. Clicar no botão "Cadastrar"
 
 ### Resultado esperado
-Sistema exibe mensagem de erro: "Insira um e-mail válido."
-Formulário não é submetido.
+Sistema bloqueia o envio e exibe mensagem de formato inválido.
+
+### Resultado obtido
+Sistema bloqueou o envio.
+⚠️ A mensagem exibida foi gerada pelo próprio navegador (validação HTML nativa): **"Inclua um @ no endereço de e-mail. camilateste.com está com um @ faltando."**
+Não é uma mensagem do ServeRest — é uma validação do browser.
+
+### Evidência
+> `evidencias/ct003-email-invalido.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado** (validação via browser, não via sistema)
 
 ---
 
@@ -95,25 +153,28 @@ Formulário não é submetido.
 ### Tipo
 Funcional
 
+### Prioridade
+Média
+
 ### Objetivo
 Validar que o sistema rejeita o cadastro quando senha e confirmação de senha não coincidem.
-
-### Pré-condição
-Acesso à tela de cadastro.
 
 ### Passos
 1. Acessar a tela de cadastro
 2. Preencher nome e e-mail válidos
-3. Inserir senha: "Senha@123"
-4. Inserir confirmação diferente: "Senha@456"
-5. Clicar no botão "Cadastrar"
+3. Inserir senhas diferentes nos campos de senha e confirmação
 
 ### Resultado esperado
 Sistema exibe mensagem: "As senhas não coincidem."
-Formulário não é submetido.
+
+### Resultado obtido
+⏭️ **Não aplicável** — o ServeRest não possui campo de confirmação de senha no formulário de cadastro.
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+⏭️ **Não aplicável ao sistema**
 
 ---
 
@@ -122,63 +183,100 @@ Formulário não é submetido.
 ### Tipo
 Funcional
 
-### Objetivo
-Validar que o sistema bloqueia o cadastro quando algum campo obrigatório não está preenchido.
+### Prioridade
+Alta
 
-### Pré-condição
-Acesso à tela de cadastro.
+### Objetivo
+Validar que o sistema bloqueia o cadastro quando campo obrigatório não está preenchido.
+
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| Nome | (vazio) |
+| E-mail | teste@teste.com |
+| Senha | teste123 |
 
 ### Passos
 1. Acessar a tela de cadastro
-2. Preencher e-mail e senha válidos
-3. Deixar o campo "Nome" em branco
+2. Deixar o campo "Nome" em branco
+3. Preencher e-mail e senha válidos
 4. Clicar no botão "Cadastrar"
 
 ### Resultado esperado
-Sistema bloqueia o envio e exibe mensagem indicando que o campo nome é obrigatório.
+Sistema bloqueia o envio e exibe mensagem indicando campo obrigatório.
+
+### Resultado obtido
+Sistema exibiu mensagem: **"Nome não pode ficar em branco"**
+Cadastro bloqueado corretamente.
+
+### Evidência
+> `evidencias/ct005-campo-vazio.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
 ## CT006 - Cadastro com senha fraca
 
 ### Tipo
-Funcional
+Funcional — Segurança
+
+### Prioridade
+Alta
 
 ### Objetivo
 Validar que o sistema rejeita senhas que não atendem aos critérios mínimos de segurança.
 
-### Pré-condição
-Sistema exige senha com mínimo 8 caracteres, letra maiúscula e caractere especial.
-Acesso à tela de cadastro.
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| Nome | Camila QA |
+| E-mail | teste.fraco@teste.com |
+| Senha | 123456 |
 
 ### Passos
 1. Acessar a tela de cadastro
 2. Preencher nome e e-mail válidos
-3. Inserir senha fraca: "123456"
-4. Confirmar a mesma senha
-5. Clicar no botão "Cadastrar"
+3. Inserir senha fraca: `123456`
+4. Clicar no botão "Cadastrar"
 
 ### Resultado esperado
 Sistema bloqueia o cadastro e exibe mensagem informando os requisitos mínimos de senha.
 
+### Resultado obtido
+❌ Sistema **aceitou** a senha fraca `123456` e realizou o cadastro com sucesso.
+Nenhuma validação de força de senha foi aplicada.
+
+### Evidência
+> `evidencias/ct006-senha-fraca.png`
+
+### Bug vinculado
+🐛 [BUG-001 — Sistema aceita senha fraca no cadastro](../bug-reports/BUG-001-senha-fraca.md)
+
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+❌ **Reprovado — Bug encontrado**
 
 ---
 
-## Resumo de cobertura
+## Resumo de execução
 
-| ID | Cenário | Tipo | Status |
+| ID | Cenário | Prioridade | Resultado |
 |---|---|---|---|
-| CT001 | Cadastro com dados válidos | Smoke Test | Não executado |
-| CT002 | E-mail já cadastrado | Funcional | Não executado |
-| CT003 | E-mail com formato inválido | Funcional | Não executado |
-| CT004 | Senhas diferentes na confirmação | Funcional | Não executado |
-| CT005 | Campo obrigatório vazio | Funcional | Não executado |
-| CT006 | Senha fraca | Funcional | Não executado |
+| CT001 | Cadastro com dados válidos | Alta | ✅ Aprovado com observação |
+| CT002 | E-mail já cadastrado | Alta | ✅ Aprovado |
+| CT003 | E-mail com formato inválido | Média | ✅ Aprovado (browser) |
+| CT004 | Senhas diferentes na confirmação | Média | ⏭️ Não aplicável |
+| CT005 | Campo obrigatório vazio | Alta | ✅ Aprovado |
+| CT006 | Senha fraca aceita | Alta | ❌ Reprovado |
+
+**Total:** 6 casos | ✅ 4 aprovados | ❌ 1 reprovado | ⏭️ 1 não aplicável
 
 ---
 
