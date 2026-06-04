@@ -11,7 +11,7 @@ O objetivo é documentar como queries SQL são usadas por analistas de QA para v
 | Arquivo | Descrição |
 |---|---|
 | `queries-sql-qa.md` | Consultas SQL organizadas por tipo com exemplos comentados |
-| `casos-de-uso-qa.md` | Cenários reais de uso de SQL em testes de software |
+| `Casos-sql-qa.md` | Cenários reais de uso de SQL em testes de software |
 
 ---
 
