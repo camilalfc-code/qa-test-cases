@@ -1,6 +1,6 @@
 # Bug Reports
 
-Esta pasta contém exemplos de relatórios de bugs utilizados em processos de teste de software (QA).
+Esta pasta contém relatórios de bugs encontrados durante a execução de testes manuais no sistema [ServeRest](https://front.serverest.dev).
 
 Os documentos apresentam:
 - Identificação do bug (ID)
@@ -8,17 +8,32 @@ Os documentos apresentam:
 - Ambiente de teste
 - Passos para reprodução
 - Resultado obtido vs. resultado esperado
-- Evidências
+- Impacto e rastreabilidade
 
-## Objetivo
-Demonstrar habilidades de documentação de falhas, análise funcional e registro de inconsistências em sistemas.
+---
 
-## Arquivos
-- `exemplo-relatório-de-erro.md` — Bug report de validação de login com campos obrigatórios vazios
+## Bugs registrados
+
+| ID | Título | Módulo | Severidade | Status |
+|---|---|---|---|---|
+| [BUG-001](./BUG-001-senha-fraca.md) | Sistema aceita senha fraca no cadastro | Cadastro | Alta | Aberto |
+| [BUG-002](./BUG-002-mensagem-cortada.md) | Mensagem de erro de login cortada na interface | Login | Baixa | Aberto |
+
+---
+
+## Referência
+
+- [Checklist e guia de classificação de bugs](./checklist-bug-report.md)
+
+---
 
 ## Ferramentas e conceitos utilizados
+
 - Testes Manuais de QA
-- JIRA
-- Testes Funcionais
 - Bug Tracking
-- Análise de comportamento do sistema
+- Análise de severidade e prioridade
+- Rastreabilidade entre bug report e caso de teste
+
+---
+
+*Repositório de estudos — Camila Lopes | QA em formação*
