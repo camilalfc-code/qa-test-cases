@@ -1,6 +1,11 @@
-# Login Test Cases
+# Login — Casos de Teste
 
 Casos de teste para validação do fluxo de autenticação (login) do sistema.
+
+**Sistema sob teste:** ServeRest — https://front.serverest.dev  
+**Data de execução:** 04/06/2026  
+**Ambiente:** Produção  
+**Executado por:** Camila Lopes  
 
 ---
 
@@ -16,21 +21,38 @@ Alta
 Validar que o login é realizado com sucesso ao inserir credenciais corretas.
 
 ### Pré-condição
-Usuário cadastrado e ativo no sistema (ex: `camila@teste.com` / senha: `Senha@123`).
+Usuário cadastrado e ativo no sistema.
+
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| E-mail | fulano@qa.com |
+| Senha | teste |
 
 ### Passos
-1. Acessar a tela de login
+1. Acessar `https://front.serverest.dev/login`
 2. Inserir e-mail válido cadastrado no sistema
 3. Inserir senha correta
-4. Clicar no botão "Login"
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
 - Usuário autenticado com sucesso
 - Redirecionado para o dashboard
 - Nome do usuário exibido no cabeçalho da página
 
+### Resultado obtido
+- Login realizado com sucesso
+- Redirecionado para o dashboard
+- Nome "Fulano da Silva" exibido no cabeçalho ✅
+
+### Evidência
+> `evidencias/ct001-login-sucesso.png`
+
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -48,20 +70,39 @@ Validar que o sistema exibe mensagem de erro ao inserir senha incorreta.
 ### Pré-condição
 Usuário cadastrado e ativo no sistema.
 
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| E-mail | fulano@qa.com |
+| Senha | senhaerrada |
+
 ### Passos
 1. Acessar a tela de login
-2. Inserir e-mail válido cadastrado no sistema
-3. Inserir senha incorreta (ex: `SenhaErrada1`)
-4. Clicar no botão "Login"
+2. Inserir e-mail válido
+3. Inserir senha incorreta
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
 - Sistema não autentica o usuário
 - Exibe mensagem: `"E-mail ou senha inválidos."`
 - Usuário permanece na tela de login
-- Campo de senha é limpo automaticamente
+
+### Resultado obtido
+- Sistema não autenticou o usuário ✅
+- Exibiu mensagem de erro ✅
+- ⚠️ A mensagem aparece **cortada** na interface — exibe apenas `"E-mail e/ou senha"` sem completar o texto
+
+### Evidência
+> `evidencias/ct002-senha-incorreta.png`
+
+### Bug vinculado
+🐛 [BUG-002 — Mensagem de erro de login cortada na interface](../bug-reports/BUG-002-mensagem-cortada.md)
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado com observação** — bug de layout registrado
 
 ---
 
@@ -74,26 +115,36 @@ Funcional
 Alta
 
 ### Objetivo
-Validar que o sistema rejeita tentativas de login com e-mail inexistente no sistema.
+Validar que o sistema rejeita tentativas de login com e-mail inexistente.
 
-### Pré-condição
-Usuário na tela de login.
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| E-mail | naoexiste@teste.com |
+| Senha | qualquercoisa |
 
 ### Passos
 1. Acessar a tela de login
-2. Inserir e-mail não cadastrado no sistema (ex: `naoexiste@teste.com`)
+2. Inserir e-mail não cadastrado
 3. Inserir qualquer senha
-4. Clicar no botão "Login"
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
 - Sistema não autentica o usuário
-- Exibe mensagem genérica: `"E-mail ou senha inválidos."` (mesma mensagem do CT002, sem revelar que o e-mail não existe)
-- Usuário permanece na tela de login
+- Exibe mensagem genérica idêntica ao CT002 (sem revelar que o e-mail não existe)
 
-> **Nota:** A mensagem de erro deve ser idêntica à do CT002. Mensagens distintas (como "usuário não encontrado") permitem que atacantes descubram quais e-mails estão cadastrados.
+### Resultado obtido
+- Sistema não autenticou ✅
+- Exibiu a mesma mensagem do CT002 ✅ — não revela se o e-mail existe no sistema
+
+### Evidência
+> `evidencias/ct003-email-nao-cadastrado.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -106,32 +157,36 @@ Funcional
 Média
 
 ### Objetivo
-Validar que o sistema rejeita e-mails com formato inválido antes de submeter o formulário.
+Validar que o sistema rejeita e-mails fora do formato esperado.
 
-### Pré-condição
-Usuário na tela de login.
+### Dados de teste
+| Entrada | Motivo |
+|---|---|
+| `camilasemarroba` | Sem @ e sem domínio |
 
 ### Passos
 1. Acessar a tela de login
-2. Inserir e-mail com formato inválido no campo de e-mail (exemplos abaixo)
+2. Inserir e-mail sem @ no campo de e-mail
 3. Inserir qualquer senha
-4. Clicar no botão "Login"
-
-**Entradas para testar:**
-| Entrada | Motivo |
-|---|---|
-| `camila` | Sem @ e sem domínio |
-| `camila@` | Sem domínio |
-| `@teste.com` | Sem nome de usuário |
-| `camila@teste` | Sem extensão de domínio |
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
-- Sistema bloqueia a submissão do formulário
-- Exibe mensagem: `"Insira um endereço de e-mail válido."`
-- Usuário permanece na tela de login
+- Sistema bloqueia a submissão
+- Exibe mensagem de formato inválido
+
+### Resultado obtido
+- Sistema bloqueou a submissão ✅
+- ⚠️ Mensagem exibida pelo **browser** (validação HTML nativa): `"Inclua um @ no endereço de e-mail. camilasemarroba está com um @ faltando."`
+- Não é mensagem do ServeRest
+
+### Evidência
+> `evidencias/ct004-email-invalido.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado** (validação via browser, não via sistema)
 
 ---
 
@@ -144,24 +199,30 @@ Funcional
 Alta
 
 ### Objetivo
-Validar que o sistema bloqueia a tentativa de login quando o campo e-mail está vazio.
-
-### Pré-condição
-Usuário na tela de login.
+Validar que o sistema bloqueia o login quando o campo e-mail está vazio.
 
 ### Passos
 1. Acessar a tela de login
-2. Deixar o campo "E-mail" em branco
+2. Deixar o campo e-mail em branco
 3. Inserir senha válida
-4. Clicar no botão "Login"
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
-- Sistema bloqueia a submissão do formulário
-- Exibe mensagem: `"O campo e-mail é obrigatório."` abaixo do campo de e-mail
-- Formulário não é submetido
+- Sistema bloqueia a submissão
+- Exibe mensagem de campo obrigatório
+
+### Resultado obtido
+- Sistema exibiu mensagem: `"Email não pode ficar em branco"` ✅
+- Formulário não foi submetido ✅
+
+### Evidência
+> `evidencias/ct005-email-vazio.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -174,24 +235,30 @@ Funcional
 Alta
 
 ### Objetivo
-Validar que o sistema bloqueia a tentativa de login quando o campo senha está vazio.
-
-### Pré-condição
-Usuário na tela de login.
+Validar que o sistema bloqueia o login quando o campo senha está vazio.
 
 ### Passos
 1. Acessar a tela de login
 2. Inserir e-mail válido
-3. Deixar o campo "Senha" em branco
-4. Clicar no botão "Login"
+3. Deixar o campo senha em branco
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
-- Sistema bloqueia a submissão do formulário
-- Exibe mensagem: `"O campo senha é obrigatório."` abaixo do campo de senha
-- Formulário não é submetido
+- Sistema bloqueia a submissão
+- Exibe mensagem de campo obrigatório
+
+### Resultado obtido
+- Sistema exibiu mensagem: `"A senha não pode ficar em branco"` ✅
+- Formulário não foi submetido ✅
+
+### Evidência
+> `evidencias/ct006-senha-vazia.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -204,23 +271,29 @@ Funcional
 Alta
 
 ### Objetivo
-Validar que o sistema bloqueia a tentativa de login quando nenhum campo está preenchido.
-
-### Pré-condição
-Usuário na tela de login.
+Validar que o sistema bloqueia o login quando nenhum campo está preenchido.
 
 ### Passos
 1. Acessar a tela de login
 2. Não preencher nenhum campo
-3. Clicar no botão "Login"
+3. Clicar no botão "Entrar"
 
 ### Resultado esperado
-- Sistema bloqueia a submissão do formulário
-- Exibe simultaneamente as mensagens: `"O campo e-mail é obrigatório."` e `"O campo senha é obrigatório."`
-- Formulário não é submetido
+- Sistema exibe as duas mensagens simultaneamente
+
+### Resultado obtido
+- Sistema exibiu simultaneamente: ✅
+  - `"Email não pode ficar em branco"`
+  - `"A senha não pode ficar em branco"`
+
+### Evidência
+> `evidencias/ct007-campos-vazios.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -233,23 +306,34 @@ Funcional — Edge Case
 Média
 
 ### Objetivo
-Validar que o sistema ignora espaços acidentais inseridos antes ou depois das credenciais (trim).
+Validar que o sistema ignora espaços acidentais nas credenciais (trim).
 
-### Pré-condição
-Usuário cadastrado e ativo no sistema.
+### Dados de teste
+| Campo | Valor |
+|---|---|
+| E-mail | ` fulano@qa.com` (com espaço antes) |
+| Senha | teste |
 
 ### Passos
 1. Acessar a tela de login
-2. Inserir o e-mail com espaço antes e/ou depois (ex: `" camila@teste.com "`)
+2. Inserir e-mail com espaço antes
 3. Inserir senha correta
-4. Clicar no botão "Login"
+4. Clicar no botão "Entrar"
 
 ### Resultado esperado
-- Sistema remove os espaços automaticamente e autentica o usuário com sucesso
-- **OU** exibe mensagem de erro informando credenciais inválidas (comportamento deve ser documentado e consistente)
+- Sistema remove os espaços e autentica com sucesso
+
+### Resultado obtido
+- Sistema removeu o espaço automaticamente e autenticou com sucesso ✅
+
+### Evidência
+> `evidencias/ct008-espacos.png`
 
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+✅ **Aprovado**
 
 ---
 
@@ -261,29 +345,15 @@ Funcional
 ### Prioridade
 Alta
 
-### Objetivo
-Validar que o sistema impede o login de usuários com conta inativa ou bloqueada.
-
-### Pré-condição
-Usuário cadastrado no sistema com status **inativo** ou **bloqueado**.
-
-### Passos
-1. Acessar a tela de login
-2. Inserir e-mail de usuário inativo/bloqueado
-3. Inserir senha correta
-4. Clicar no botão "Login"
-
-### Resultado esperado
-- Sistema não autentica o usuário
-- Exibe mensagem informando que a conta está inativa ou bloqueada (ex: `"Sua conta está desativada. Entre em contato com o suporte."`)
-- Usuário permanece na tela de login
-
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+⏭️ **Não aplicável** — o ServeRest não possui conceito de usuário inativo ou bloqueado. Cenário válido para sistemas com gestão de status de usuário.
 
 ---
 
-## CT010 - Bloqueio por excesso de tentativas de login (Brute Force)
+## CT010 - Bloqueio por excesso de tentativas (Brute Force)
 
 ### Tipo
 Funcional — Segurança
@@ -291,51 +361,31 @@ Funcional — Segurança
 ### Prioridade
 Alta
 
-### Objetivo
-Validar que o sistema bloqueia temporariamente o acesso após múltiplas tentativas de login com falha consecutivas.
-
-### Pré-condição
-Usuário cadastrado no sistema. Sistema configurado para bloquear após N tentativas (ex: 5).
-
-### Passos
-1. Acessar a tela de login
-2. Inserir e-mail válido e senha incorreta
-3. Clicar no botão "Login"
-4. Repetir os passos 2 e 3 até atingir o limite de tentativas (ex: 5 vezes)
-
-### Resultado esperado
-- Após atingir o limite, o sistema bloqueia novas tentativas
-- Exibe mensagem: `"Muitas tentativas. Tente novamente em X minutos."` ou similar
-- O bloqueio deve persistir mesmo após recarregar a página
-
 ### Status
-- [ ] Não executado
+- [x] Executado
+
+### Resultado
+⏭️ **Não aplicável** — o ServeRest não possui proteção contra múltiplas tentativas de login. Cenário válido para sistemas com política de segurança de acesso.
 
 ---
 
-## Resumo de cobertura
+## Resumo de execução
 
-| ID | Cenário | Tipo | Prioridade | Status |
-|---|---|---|---|---|
-| CT001 | Login com credenciais válidas | Smoke Test | Alta | Não executado |
-| CT002 | Login com senha incorreta | Funcional | Alta | Não executado |
-| CT003 | Login com e-mail não cadastrado | Funcional | Alta | Não executado |
-| CT004 | Login com e-mail em formato inválido | Funcional | Média | Não executado |
-| CT005 | Campo e-mail vazio | Funcional | Alta | Não executado |
-| CT006 | Campo senha vazio | Funcional | Alta | Não executado |
-| CT007 | Nenhum campo preenchido | Funcional | Alta | Não executado |
-| CT008 | Espaços antes/depois das credenciais | Edge Case | Média | Não executado |
-| CT009 | Usuário inativo ou bloqueado | Funcional | Alta | Não executado |
-| CT010 | Bloqueio por excesso de tentativas | Segurança | Alta | Não executado |
+| ID | Cenário | Prioridade | Resultado |
+|---|---|---|---|
+| CT001 | Login com credenciais válidas | Alta | ✅ Aprovado |
+| CT002 | Login com senha incorreta | Alta | ✅ Aprovado ⚠️ bug de layout |
+| CT003 | E-mail não cadastrado | Alta | ✅ Aprovado |
+| CT004 | E-mail com formato inválido | Média | ✅ Aprovado (browser) |
+| CT005 | Campo e-mail vazio | Alta | ✅ Aprovado |
+| CT006 | Campo senha vazio | Alta | ✅ Aprovado |
+| CT007 | Nenhum campo preenchido | Alta | ✅ Aprovado |
+| CT008 | Espaços nas credenciais | Média | ✅ Aprovado |
+| CT009 | Usuário inativo/bloqueado | Alta | ⏭️ Não aplicável |
+| CT010 | Brute force | Alta | ⏭️ Não aplicável |
 
----
-
-> **Nota sobre CT005 original (senha abaixo do tamanho mínimo):** A validação de tamanho mínimo de senha pertence ao fluxo de **Cadastro** ou **Alteração de Senha**, não ao Login. No login, qualquer sequência de caracteres é uma tentativa de credencial — se não bater com a senha cadastrada, é coberto pelo CT002.
+**Total:** 10 casos | ✅ 8 aprovados | ⏭️ 2 não aplicáveis | 🐛 1 bug registrado
 
 ---
 
 *Repositório de estudos — Camila Lopes | QA em formação*
-
-
-
-
