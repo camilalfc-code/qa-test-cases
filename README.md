@@ -131,7 +131,7 @@ Fluxo completo de QA com JIRA em ambiente ágil:
 - [x] Jira — gestão de bugs e fluxo ágil
 - [x] Git e GitHub
 - [x] Automação E2E com Cypress
-- [ ] Testes de API com Postman
+- [x] Testes de API com Postman
 - [ ] CTFL — ISTQB (certificação)
 
 ---
@@ -141,6 +141,7 @@ Fluxo completo de QA com JIRA em ambiente ágil:
 | Repositório | Descrição |
 |---|---|
 | [meu-projeto-cypress](https://github.com/camilalfc-code/meu-projeto-cypress) | Automação E2E com Cypress — 6 testes de login e cadastro |
+| [qa-portfolio-serverest](https://github.com/camilalfc-code/qa-portfolio-serverest) | Testes de API com Postman — 12 testes passando |
 
 ---
 
