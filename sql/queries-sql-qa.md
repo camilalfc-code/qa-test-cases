@@ -173,6 +173,43 @@ WHERE pedidos.status = 'concluido'
 AND clientes.email IS NULL;
 ```
 
+---
+
+## Exercícios práticos — Banco ServeRest
+
+Queries executadas contra banco simulado do ServeRest no SQLiteOnline.
+
+```sql
+-- 1. Filtrar apenas usuários administradores
+SELECT * FROM usuarios WHERE administrador = 'true';
+
+-- 2. Encontrar produtos sem estoque
+SELECT * FROM produtos WHERE quantidade = 0;
+
+-- 3. Listar produtos do mais caro para o mais barato
+SELECT * FROM produtos ORDER BY preco DESC;
+
+-- 4. Contar total de usuários cadastrados
+SELECT COUNT(*) FROM usuarios;
+
+-- 5. Usuários com carrinho ativo (JOIN)
+SELECT usuarios.nome, carrinhos.valor_total
+FROM carrinhos
+JOIN usuarios ON carrinhos.id_usuario = usuarios.id;
+
+-- 6. Produtos com estoque baixo E preço alto (AND)
+SELECT * FROM produtos WHERE quantidade < 10 AND preco > 100;
+
+-- 7. Buscar usuários por domínio de e-mail (LIKE)
+SELECT * FROM usuarios WHERE email LIKE '%@teste.com';
+
+-- 8. Relatório completo: usuários com carrinho ordenado por valor
+SELECT usuarios.nome, usuarios.email, carrinhos.valor_total
+FROM carrinhos
+JOIN usuarios ON carrinhos.id_usuario = usuarios.id
+ORDER BY carrinhos.valor_total DESC;
+```
+
 **Conclusão:** com essas queries é possível identificar exatamente quais pedidos falharam e se o problema está nos dados (e-mail nulo) ou no processo de envio.
 
 ---
